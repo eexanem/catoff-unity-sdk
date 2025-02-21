@@ -11,11 +11,14 @@ public static class CatoffAPI {
 
     [DllImport("__Internal")]
     private static extern string Catoff_Authenticate();
+
+    [DllImport("__Internal")]
+    private static extern void Unity_LogToBrowser(string message);
 #endif
 
     public static void Log(string message) {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        Catoff_LogMessage(message);
+        Unity_LogToBrowser(message); // Send Unity logs to browser console
 #else
         Debug.Log($"[Catoff Mock] {message}");
 #endif
@@ -26,7 +29,7 @@ public static class CatoffAPI {
         return Catoff_CreateChallenge(gameId, wager);
 #else
         var challengeId = $"MOCK_CHALLENGE_{System.DateTime.Now.Ticks}";
-        Debug.Log($"[Catoff Mock] Created Challenge: {gameId} ({wager} SOL)");
+        Log($"Created Challenge: {gameId} ({wager} SOL)");
         return challengeId;
 #endif
     }
@@ -36,7 +39,7 @@ public static class CatoffAPI {
         return Catoff_Authenticate();
 #else
         var wallet = $"MOCK_WALLET_{Random.Range(100, 999)}";
-        Debug.Log($"[Catoff Mock] Authenticated: {wallet}");
+        Log($"Authenticated: {wallet}");
         return wallet;
 #endif
     }

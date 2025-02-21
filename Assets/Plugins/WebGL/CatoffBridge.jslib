@@ -13,5 +13,9 @@ mergeInto(LibraryManager.library, {
     const wallet = `MOCK_WALLET_${Math.floor(Math.random() * 1000)}`;
     console.log(`[Catoff Mock] Authenticated: ${wallet}`);
     return wallet;
+  },
+
+  Unity_LogToBrowser: function(message) {  
+    console.log(`[Unity] ${UTF8ToString(message)}`);
   }
 });
