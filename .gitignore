@@ -76,3 +76,14 @@ crashlytics-build.properties
 # WebGL Builds
 /WebGLBuild/
 /WebGLBuild.meta
+
+# Shaders/Materials
+*.shader
+*.mat
+*.shadergraph
+*.material
+Assets/TextMesh Pro/*
+
+# Fonts (unless custom)
+*.ttf
+*.otf

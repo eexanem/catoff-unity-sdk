@@ -18,7 +18,7 @@ public static class CatoffAPI {
 
     public static void Log(string message) {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        Unity_LogToBrowser(message); // Send Unity logs to browser console
+        Unity_LogToBrowser(message);
 #else
         Debug.Log($"[Catoff Mock] {message}");
 #endif
