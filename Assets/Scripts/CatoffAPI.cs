@@ -7,10 +7,10 @@ public static class CatoffAPI {
     private static extern void Catoff_LogMessage(string message);
 
     [DllImport("__Internal")]
-    private static extern string Catoff_CreateChallenge(string gameId, double wager);
+    private static extern string Catoff_Authenticate();
 
     [DllImport("__Internal")]
-    private static extern string Catoff_Authenticate();
+    private static extern string Catoff_CreateChallenge(string gameId, double wager);
 
     [DllImport("__Internal")]
     private static extern void Unity_LogToBrowser(string message);
@@ -24,16 +24,6 @@ public static class CatoffAPI {
 #endif
     }
 
-    public static string CreateChallenge(string gameId, double wager) {
-#if UNITY_WEBGL && !UNITY_EDITOR
-        return Catoff_CreateChallenge(gameId, wager);
-#else
-        var challengeId = $"MOCK_CHALLENGE_{System.DateTime.Now.Ticks}";
-        Log($"Created Challenge: {gameId} ({wager} SOL)");
-        return challengeId;
-#endif
-    }
-
     public static string Authenticate() {
 #if UNITY_WEBGL && !UNITY_EDITOR
         return Catoff_Authenticate();
@@ -41,6 +31,16 @@ public static class CatoffAPI {
         var wallet = $"MOCK_WALLET_{Random.Range(100, 999)}";
         Log($"Authenticated: {wallet}");
         return wallet;
+#endif
+    }
+
+    public static string CreateChallenge(string gameId, double wager) {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        return Catoff_CreateChallenge(gameId, wager);
+#else
+        var challengeId = $"MOCK_CHALLENGE_{System.DateTime.Now.Ticks}";
+        Log($"Created Challenge: {gameId} ({wager} SOL)");
+        return challengeId;
 #endif
     }
 }
