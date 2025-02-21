@@ -26,7 +26,12 @@ public static class CatoffAPI {
 
     public static string Authenticate() {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        return Catoff_Authenticate();
+        string wallet = Catoff_Authenticate();
+        if (string.IsNullOrEmpty(wallet) || wallet == "0") {
+            Debug.LogError("[Catoff ERROR] Authentication failed.");
+            return null;
+        }
+        return wallet;
 #else
         var wallet = $"MOCK_WALLET_{Random.Range(100, 999)}";
         Log($"Authenticated: {wallet}");
@@ -36,7 +41,12 @@ public static class CatoffAPI {
 
     public static string CreateChallenge(string gameId, double wager) {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        return Catoff_CreateChallenge(gameId, wager);
+        string challengeId = Catoff_CreateChallenge(gameId, wager);
+        if (string.IsNullOrEmpty(challengeId) || challengeId == "0") {
+            Debug.LogError("[Catoff ERROR] Challenge creation failed.");
+            return null;
+        }
+        return challengeId;
 #else
         var challengeId = $"MOCK_CHALLENGE_{System.DateTime.Now.Ticks}";
         Log($"Created Challenge: {gameId} ({wager} SOL)");

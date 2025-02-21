@@ -1,17 +1,23 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
+using TMPro;
 
 public class ChallengeUI : MonoBehaviour {
     public Button challengeButton;
     public TMP_Text challengeStatus;
 
     void Start() {
-        challengeButton.onClick.AddListener(OnChallengeClicked);
+        challengeButton.onClick.AddListener(OnCreateChallenge);
     }
 
-    void OnChallengeClicked() {
+    void OnCreateChallenge() {
+        challengeStatus.text = "Creating challenge...";
+        
         string challengeId = CatoffAPI.CreateChallenge("test_game", 1.5);
-        challengeStatus.text = $"Challenge Created: {challengeId}";
+        if (string.IsNullOrEmpty(challengeId)) {
+            challengeStatus.text = "⚠️ Challenge creation failed. Please try again!";
+        } else {
+            challengeStatus.text = $"✅ Challenge created: {challengeId}";
+        }
     }
 }
