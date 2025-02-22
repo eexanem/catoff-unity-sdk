@@ -24,7 +24,7 @@ This is a WebGL-based gaming prototype that integrates a mock wallet authenticat
 
 ---
 
-## 🎮 Features Implemented
+## Features Implemented
 
 - WebGL & Unity Message Passing
 - Mock Wallet Authentication (Phantom)
