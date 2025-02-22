@@ -59,4 +59,3 @@ This is a WebGL-based gaming prototype that integrates a mock wallet authenticat
 ## API Reference
 
 For a detailed API guide, check [`Docs/API_REFERENCE.md`](Docs/API_REFERENCE.md).
-```
